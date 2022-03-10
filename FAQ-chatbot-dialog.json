@@ -1,0 +1,222 @@
+{
+  "intents": [
+    {
+      "intent": "Entrega_produto",
+      "examples": [
+        {
+          "text": "Demora muito para entregar aqui em São Paulo?"
+        },
+        {
+          "text": "Qual é o prazo de entrega?"
+        },
+        {
+          "text": "quando chega?"
+        },
+        {
+          "text": "Quantos dias até minha entrega chegar?"
+        },
+        {
+          "text": "Quantos dias úteis para entrega?"
+        },
+        {
+          "text": "Quanto tempo demora para o meu produto chegar aqui em casa?"
+        },
+        {
+          "text": "Quanto tempo demora para o meu produto ser entregue?"
+        },
+        {
+          "text": "Quanto tempo leva para entregar o meu produto?"
+        },
+        {
+          "text": "Quanto tempo o meu produto demora para chegar?"
+        }
+      ],
+      "description": "Captura a intenção do usuário saber quando o produto será entregue"
+    },
+    {
+      "intent": "Número_Contato",
+      "examples": [
+        {
+          "text": "Qual o 0800 que posso ligar?"
+        },
+        {
+          "text": "Qual o número de vocês?"
+        },
+        {
+          "text": "QUERO FALAR COM UMA PESSOA"
+        },
+        {
+          "text": "Quero falar com um atendente"
+        },
+        {
+          "text": "Tem algum número que eu posso ligar?"
+        },
+        {
+          "text": "Tem um contato para eu ligar caso haja algum problema?"
+        }
+      ],
+      "description": "Caso a pessoa prefira ligar para um atendente"
+    },
+    {
+      "intent": "reserva_produto",
+      "examples": [
+        {
+          "text": "Como eu faço para reservar um produto no site?"
+        },
+        {
+          "text": "Me ajuda a reservar um produto"
+        },
+        {
+          "text": "Onde eu faço a reserva do produto que eu quero comprar?"
+        },
+        {
+          "text": "Quando eu adiciono um produto ao carrinho, ele fica reservado?"
+        },
+        {
+          "text": "Quero garantir meu produto antes de finalizar a compra"
+        },
+        {
+          "text": "Quero reservar um produto."
+        },
+        {
+          "text": "Vocês reservam produtos?"
+        }
+      ],
+      "description": "Intenção sobre reservar um produto no site"
+    }
+  ],
+  "entities": [],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Bem-vindo",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Olá. Como posso te ajudar?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Bem-vindo"
+    },
+    {
+      "type": "standard",
+      "title": "Em outros casos",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Eu não entendi. Você pode tentar reformular a frase."
+              },
+              {
+                "text": "Você pode reformular sua afirmação? Eu não estou entendendo."
+              },
+              {
+                "text": "Eu não entendi o sentido."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Em outros casos",
+      "previous_sibling": "node_4_1646914054401",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Entrega do produto",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Garantimos um prazo de 30 dias para a entrega do seu produto."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Entrega_produto",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_10_1646913471375",
+      "previous_sibling": "node_4_1646912954694"
+    },
+    {
+      "type": "standard",
+      "title": "Reserva do produto",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Não reservamos produtos. O produto só é reservado após a finalização da compra."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#reserva_produto",
+      "dialog_node": "node_4_1646912954694",
+      "previous_sibling": "Bem-vindo"
+    },
+    {
+      "type": "standard",
+      "title": "Contato",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Caso tenha alguma dúvida, ligue para 0800-5052-8149."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Número_Contato",
+      "dialog_node": "node_4_1646914054401",
+      "previous_sibling": "node_10_1646913471375"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "disambiguation": {
+      "prompt": "Você quis dizer:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "Nenhuma das anteriores"
+    },
+    "human_agent_assist": {
+      "prompt": "Você quis dizer:"
+    }
+  },
+  "learning_opt_out": false,
+  "name": "FAQ chatbot",
+  "language": "pt-br",
+  "description": "Contém elementos de conversa como se fosse um FAQ do site."
+}
